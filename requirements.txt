@@ -1,0 +1,14 @@
+requests==2.32.3
+# requests deps:
+certifi==2024.8.30
+charset-normalizer==3.4.0
+idna==3.10
+urllib3==2.2.3
+
+
+# requirements DEV
+flake8==7.1.1
+# flake8 deps:
+mccabe==0.7.0
+pycodestyle==2.12.1
+pyflakes==3.2.0
