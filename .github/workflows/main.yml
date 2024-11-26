@@ -1,0 +1,44 @@
+name: pythonlibs-CI
+
+on:
+  push:
+    branches:
+      - main  # Verifica o código ao fazer push na branch "main"
+  pull_request:
+    branches:
+      - main  # Verifica o código em PRs para a branch "main"
+
+jobs:
+  flake8-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checa o código do repositório
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # Configura o Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # Instala os dependências
+      - name: Install dependencies
+        run: |
+          python -q -m pip install --upgrade pip
+          pip install -q -r requirements.txt
+
+
+      # Executa o Flake8
+      - name: Run Flake8
+        run: |
+          flake8 .
+
+      # Executa o safety
+      - uses: actions/checkout@main
+      - name: Run Safety CLI to check for vulnerabilities
+        uses: pyupio/safety-action@v1
+        with:
+          api-key: ${{ secrets.SAFETY_API_KEY }}
+          args: --detailed-output --input=requirements.txt
