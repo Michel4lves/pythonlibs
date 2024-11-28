@@ -48,11 +48,6 @@ jobs:
         run: |
           pytest --cov=pythonlibs --maxfail=5 --disable-warnings --cov-report=xml
 
-      # Gera o relatório de cobertura de testes
-      - name: Generate a coverage report
-        run: |
-          pytest --cov=pythonlibs --cov-report=xml
-
       # Executa o report da cobertura do Codecov
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
