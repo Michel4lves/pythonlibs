@@ -46,4 +46,15 @@ jobs:
       # Executa os testes com pytest
       - name: Run pytest
         run: |
-          pytest --maxfail=5 --disable-warnings
+          pytest --cov=pythonlibs --maxfail=5 --disable-warnings
+
+      # Gera o relatório de cobertura de testes
+      - name: Generate a coverage report
+        run: |
+          pytest --cov --cov-report=xml
+
+      # Executa o report da cobertura do Codecov
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
